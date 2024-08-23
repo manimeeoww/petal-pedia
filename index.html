@@ -44,7 +44,7 @@
             formData.append('file', fileInput.files[0]);
 
             try {
-                const response = await fetch('https://petal-pedia-bsv8-hv2enmujg-manimeeowws-projects.vercel.app/predict', {
+                const response = await fetch('https://petal-pedia.vercel.app/predict', {
                     method: 'POST',
                     body: formData
                 });
