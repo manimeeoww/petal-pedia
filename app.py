@@ -8,7 +8,7 @@ import requests
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": "https://petal-pedia.vercel.app"}})
+CORS(app, resources={r"/*": {"origins": "https://petal-pedia-bsv8-j452etjiu-manimeeowws-projects.vercel.app/"}})
 
 # Load the model
 model = tf.keras.models.load_model('mymodel.h5')
