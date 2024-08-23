@@ -3,12 +3,12 @@ from flask_cors import CORS
 import numpy as np
 import tensorflow as tf
 from PIL import Image
-import io
-import requests
+import traceback
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": "https://petal-pedia-bsv8-j452etjiu-manimeeowws-projects.vercel.app/"}})
+# Update CORS to match your front-end URL
+CORS(app, resources={r"/*": {"origins": "https://petal-pedia-bsv8-j452etjiu-manimeeowws-projects.vercel.app"}})
 
 # Load the model
 model = tf.keras.models.load_model('mymodel.h5')
@@ -20,7 +20,7 @@ categories = {
         'origin': 'Native to Europe, western Asia, and northern Africa',
         'family': 'Asteraceae (Compositae)',
         'symbolism': 'Known for its soothing properties, it symbolizes relaxation, peace, and healing. It\'s often used in herbal remedies and teas.',
-        'link':  'https://en.wikipedia.org/wiki/Chrysanthemum',
+        'link': 'https://en.wikipedia.org/wiki/Chamomile',
         'image': 'https://i.pinimg.com/564x/26/d8/e8/26d8e8760154d8229ef3ae6b3a078f6b.jpg'
     },
     'Chrysanthemum': {
@@ -28,7 +28,7 @@ categories = {
         'origin': 'Native to Asia and northeastern Europe',
         'family': 'Asteraceae (Compositae)',
         'symbolism': 'Symbolizes longevity, loyalty, joy, and optimism. In some cultures, it\'s associated with death and used in funeral rituals.',
-        'link':  'https://en.wikipedia.org/wiki/Chrysanthemum',
+        'link': 'https://en.wikipedia.org/wiki/Chrysanthemum',
         'image': 'https://i.pinimg.com/564x/20/63/25/206325bae5f105956f255845eb42bbcc.jpg'
     },
     'French Marigold': {
@@ -36,7 +36,7 @@ categories = {
         'origin': 'Native to Mexico and Central America',
         'family': 'Asteraceae (Compositae)',
         'symbolism': 'Symbolizes passion and creativity. It\'s also associated with positive energy and good fortune.',
-        'link':  'https://en.wikipedia.org/wiki/Chrysanthemum',
+        'link': 'https://en.wikipedia.org/wiki/Marigold',
         'image': 'https://i.pinimg.com/564x/20/63/25/206325bae5f105956f255845eb42bbcc.jpg'
     },
     'Lavender': {
@@ -44,7 +44,7 @@ categories = {
         'origin': 'Native to the Mediterranean region, Africa, and India',
         'family': 'Lamiaceae (mint family)',
         'symbolism': 'Represents calmness, serenity, and grace. It\'s often associated with cleanliness and relaxation.',
-        'link':  'https://en.wikipedia.org/wiki/Chrysanthemum',
+        'link': 'https://en.wikipedia.org/wiki/Lavender',
         'image': 'https://i.pinimg.com/564x/20/63/25/206325bae5f105956f255845eb42bbcc.jpg'
     },
     'Lotus': {
@@ -52,7 +52,7 @@ categories = {
         'origin': 'Native to Asia and Australia',
         'family': 'Nelumbonaceae',
         'symbolism': 'Represents purity, enlightenment, and rebirth in various cultures, particularly in Asian religions like Buddhism and Hinduism.',
-        'link':  'https://en.wikipedia.org/wiki/Nelumbo_nucifera',
+        'link': 'https://en.wikipedia.org/wiki/Nelumbo_nucifera',
         'image': 'https://i.pinimg.com/564x/54/1f/e7/541fe7d7d8a5f3db275336ae7894dc17.jpg'
     },
     'Passion Flower': {
@@ -60,7 +60,7 @@ categories = {
         'origin': 'Native to tropical and subtropical regions of the Americas',
         'family': 'Passiflorine (passionflower family)',
         'symbolism': 'Represents faith, passion, and spirituality. The intricate structure of its flower is often seen as a symbol of the Passion of Christ.',
-        'link':  'https://en.wikipedia.org/wiki/Nelumbo_nucifera',
+        'link': 'https://en.wikipedia.org/wiki/Passion_flower',
         'image': 'https://i.pinimg.com/564x/eb/bb/9d/ebbb9d014988fc6e8f6990c959b0761f.jpg'
     },
     'Poppy': {
@@ -68,7 +68,7 @@ categories = {
         'origin': 'Native to California, USA, and adjacent areas of Mexico',
         'family': 'Papaveraceae (poppy family)',
         'symbolism': 'Represents imagination, success, and remembrance. It\'s also associated with relaxation and restful sleep.',
-        'link':  'https://en.wikipedia.org/wiki/Nelumbo_nucifera',
+        'link': 'https://en.wikipedia.org/wiki/California_poppy',
         'image': 'https://i.pinimg.com/564x/7b/94/aa/7b94aa41ccccba116748f8e58aa24e2c.jpg'
     },
     'Purple coneflower': {
@@ -76,7 +76,7 @@ categories = {
         'origin': 'Native to eastern and central North America',
         'family': 'Asteraceae (Compositae)',
         'symbolism': 'Known for its medicinal properties and immune-boosting benefits. Represents strength, health, and healing.',
-        'link':  'https://en.wikipedia.org/wiki/Nelumbo_nucifera',
+        'link': 'https://en.wikipedia.org/wiki/Echinacea',
         'image': 'https://i.pinimg.com/564x/84/28/b6/8428b6a28d45bd3467326c94d7953a7c.jpg'
     },
     'Rose': {
@@ -96,8 +96,6 @@ categories = {
         'image': 'https://i.pinimg.com/564x/fa/33/cc/fa33ccdefc6f4c5c696d6af334cfc5a5.jpg'
     }
 }
-
-import traceback
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -136,7 +134,6 @@ def predict():
     except Exception as e:
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500
-
 
 if __name__ == "__main__":
     app.run()
