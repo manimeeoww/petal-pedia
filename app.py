@@ -8,7 +8,7 @@ import traceback
 app = Flask(__name__)
 
 # Update CORS to match your front-end URL
-CORS(app, resources={r"/*": {"origins": "petal-pedia-ai.vercel.app"}})
+CORS(app, resources={r"/*": {"origins": "https://petal-pedia-ai.vercel.app/"}})
 
 # Load the model
 model = tf.keras.models.load_model('mymodel.h5')
