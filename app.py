@@ -9,7 +9,7 @@ import requests
 app = Flask(__name__)
 
 # Allow requests from your Netlify domain
-CORS(app, resources={r"/*": {"origins": ["https://your-custom-domain.com", "https://petal-pedia.vercel.app"]}})
+CORS(app, resources={r"/*": {"origins": ["https://petal-pedia.vercel.app", "https://petal-pedia.vercel.app"]}})
 
 # Your existing code here...
 
