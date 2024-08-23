@@ -31,7 +31,7 @@
 <body>
     <h1>Flower Classification</h1>
     <form id="upload-form" enctype="multipart/form-data">
-        <input type="file" id="file-input" name="file" accept="image/*"> <!-- Ensure the name is 'file' -->
+        <input type="file" id="file-input" name="file" accept="image/*">
         <button type="button" onclick="getPrediction()">Upload and Predict</button>
     </form>
     <div id="prediction-result"></div>
@@ -41,7 +41,7 @@
         async function getPrediction() {
             const fileInput = document.getElementById('file-input');
             const formData = new FormData();
-            formData.append('file', fileInput.files[0]); // Ensure this matches Flask's expected key
+            formData.append('file', fileInput.files[0]);
 
             try {
                 const response = await fetch('/predict', {
@@ -53,7 +53,6 @@
                     const result = await response.json();
                     document.getElementById('prediction-result').innerText = 'Prediction: ' + result.prediction;
 
-                    // Display additional information with image first
                     const flowerInfoDiv = document.getElementById('flower-info');
                     flowerInfoDiv.innerHTML = `
                         <img src="${result.image}" alt="${result.prediction}">
@@ -75,5 +74,3 @@
     </script>
 </body>
 </html>
-
-
