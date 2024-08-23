@@ -61,10 +61,10 @@ six==1.16.0
 smmap==5.0.1
 streamlit==1.36.0
 tenacity==8.5.0
-tensorboard==2.13.0
+tensorboard==2.16.0
 tensorboard-data-server==0.7.2
-tensorflow==2.13.0
-tensorflow-intel==2.13.0
+tensorflow==2.16.0
+tensorflow-intel==2.16.0
 termcolor==2.4.0
 threadpoolctl==3.5.0
 toml==0.10.2
