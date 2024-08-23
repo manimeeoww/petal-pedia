@@ -96,6 +96,8 @@ categories = {
         'image': 'https://i.pinimg.com/564x/fa/33/cc/fa33ccdefc6f4c5c696d6af334cfc5a5.jpg'
     }
 }
+import logging
+logging.basicConfig(level=logging.INFO)
 
 @app.route('/predict', methods=['POST'])
 def predict():
