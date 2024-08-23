@@ -8,10 +8,7 @@ import requests
 
 app = Flask(__name__)
 
-# Allow requests from your Netlify domain
 CORS(app, resources={r"/*": {"origins": "https://petal-pedia.vercel.app"}})
-
-# Your existing code here...
 
 # Load the model
 model = tf.keras.models.load_model('mymodel.h5')
@@ -143,6 +140,3 @@ def predict():
 
 if __name__ == "__main__":
     app.run()
-
-
-
