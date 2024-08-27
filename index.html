@@ -39,13 +39,26 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite@latest"></script>
     <script>
-        let model;
-
         async function loadModel() {
-            // Load the TFLite model
-            model = await tflite.loadTFLiteModel('D:/Study/project/flask-tes/templates/model.tflite'); // Update with the path to your TFLite model
-            console.log('Model loaded');
+            try {
+                // Fetch the model from the Flask server using the route /download-model
+                const modelURL = 'https://petal-pedia.vercel.app/download-model';  // This is the URL where Flask serves the model
+                const response = await fetch(modelURL);
+                if (!response.ok) throw new Error('Failed to load model');
+
+                const arrayBuffer = await response.arrayBuffer();
+                const modelBlob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
+
+                // Load the model using the TensorFlow.js TFLite package
+                const tfliteModel = await tflite.loadTFLiteModel(URL.createObjectURL(modelBlob));
+                console.log("Model loaded successfully:", tfliteModel);
+            } catch (error) {
+                console.error("Error loading the model:", error);
+            }
         }
+
+        // Call the loadModel function when the page loads
+        window.onload = loadModel;
 
         async function getPrediction() {
             if (!model) {
