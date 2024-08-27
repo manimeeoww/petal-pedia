@@ -18,6 +18,14 @@ model = None
 def home():
     return render_template('index.html')
 
+@app.route('/download-model')
+def download_model():
+    model_path = 'model.tflite'  # Make sure this path points to your actual .tflite file
+    try:
+        return send_file(model_path, as_attachment=True)  # Serve the file for download
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/upload-model', methods=['POST'])
 def upload_model():
     global model
